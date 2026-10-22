@@ -1,16 +1,3 @@
-# WERKSTATT // Bauhaus GitHub Portfolio
-
-> **"Form follows function. Art and technology: a new unity."**  
-> A lightweight, static portfolio website engineered for GitHub Pages, inspired by classic Bauhaus Weimar design principles, bold typography, and modern web standards.
-
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
-![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-222222?style=flat-square&logo=github&logoColor=white)
-![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)
-
----
-
 ## Highlights & Features
 
 - **Bauhaus Design System**: Unapologetic primary palette (Vermilion Red `#E63946`, Cobalt Blue `#1D4ED8`, Sun Yellow `#F59E0B`, Pitch Black `#111111`, Paper Cream `#F7F4EB`), high-contrast structural grid borders, and geometric primitives.
@@ -114,21 +101,6 @@ npm run lint
 # Run Node syntax check only
 npm run lint:syntax
 ```
-
----
-
-## Customization Guide
-
-### 1. Personalizing Profile & Repositories
-Open `script.js` and edit the `CURATED_PROJECTS` array to replace the default projects with your own repositories, description, live links, and star counts.
-
-### 2. Updating Header Links & Socials
-In `index.html`:
-- Search for `https://github.com` and replace with your personal GitHub URL (e.g. `https://github.com/your-username`).
-- Update the email address in `#terminal` and the footer: `contact@werkstatt.dev` → `your-email@example.com`.
-
-### 3. Fetching Real GitHub Repos Automatically
-In `script.js`, you can call `fetchGithubUserRepos('your-username')` directly in `DOMContentLoaded` if you want the site to automatically populate with your live public GitHub repositories on load!
 
 ---
 

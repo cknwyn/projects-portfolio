@@ -1042,7 +1042,7 @@
       const handleSync = () => {
         const u = ghUsernameInput.value.trim();
         if (u) {
-          fetchGithubUserRepos(u);
+          fetchGithubUserRepos('cknwyn');
         } else {
           showToast('Please enter a valid GitHub username.');
         }
@@ -1192,7 +1192,8 @@
         showToast('Bauhaus Werkstatt active: Move your cursor to bend geometric field lines.');
       });
     }
+
+    // 14. Autopopulate projects
+    fetchGithubUserRepos('cknwyn')
   });
 })();
-
-bogusVar.crash();

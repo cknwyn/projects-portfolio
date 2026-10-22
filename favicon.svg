@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" fill="#F7F4EB"/>
+  <!-- Red Circle -->
+  <circle cx="22" cy="24" r="14" fill="#E63946" />
+  <!-- Blue Square -->
+  <rect x="28" y="24" width="24" height="24" fill="#1D4ED8" />
+  <!-- Yellow Triangle -->
+  <polygon points="12,54 28,24 44,54" fill="#F59E0B" opacity="0.9" />
+  <!-- Black structural accents -->
+  <line x1="8" y1="8" x2="56" y2="8" stroke="#111111" stroke-width="3" stroke-linecap="square"/>
+  <circle cx="48" cy="18" r="4" fill="#111111"/>
+</svg>

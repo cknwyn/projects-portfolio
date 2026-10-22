@@ -1,0 +1,2328 @@
+/* ==========================================================================
+   WERKSTATT // BAUHAUS DESIGN SYSTEM & STYLESHEET
+   A pure CSS architectural framework honoring Walter Gropius, Herbert Bayer,
+   and contemporary web standards. Zero bloat. 100% responsive.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   01. CSS Custom Properties / Design Tokens
+   -------------------------------------------------------------------------- */
+:root {
+  /* Bauhaus Primary Palette */
+  --bauhaus-red: #E63946;
+  --bauhaus-blue: #1D4ED8;
+  --bauhaus-yellow: #F59E0B;
+  --bauhaus-black: #111111;
+  --bauhaus-cream: #F7F4EB;
+  --bauhaus-white: #FFFFFF;
+  --bauhaus-gray-light: #ECE8DD;
+  --bauhaus-gray-mid: #D4CEBE;
+  --bauhaus-gray-dark: #333333;
+
+  /* Semantic Theme Aliases */
+  --bg-primary: var(--bauhaus-cream);
+  --bg-surface: var(--bauhaus-white);
+  --text-primary: var(--bauhaus-black);
+  --text-muted: #555555;
+  --border-color: var(--bauhaus-black);
+
+  /* Bauhaus Structural Lines */
+  --border-thin: 1px solid var(--border-color);
+  --border-thick: 2px solid var(--border-color);
+  --border-heavy: 3px solid var(--border-color);
+  --border-monument: 4px solid var(--border-color);
+
+  /* Bauhaus Geometric Shadows (Hard-edge, no fuzzy blur) */
+  --shadow-sm: 2px 2px 0px var(--bauhaus-black);
+  --shadow-md: 4px 4px 0px var(--bauhaus-black);
+  --shadow-lg: 6px 6px 0px var(--bauhaus-black);
+  --shadow-red: 4px 4px 0px var(--bauhaus-red);
+  --shadow-blue: 4px 4px 0px var(--bauhaus-blue);
+  --shadow-yellow: 4px 4px 0px var(--bauhaus-yellow);
+
+  /* Typography */
+  --font-display: 'Syne', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+
+  /* Transitions */
+  --ease-snappy: cubic-bezier(0.16, 1, 0.3, 1);
+  --trans-fast: 0.15s var(--ease-snappy);
+  --trans-normal: 0.25s var(--ease-snappy);
+  --trans-slow: 0.5s var(--ease-snappy);
+
+  /* Layout */
+  --max-width: 1280px;
+  --header-height: 72px;
+}
+
+/* --------------------------------------------------------------------------
+   02. Modern Reset & Base Rules
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-height) + 32px);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.5;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  /* Subtle geometric grain or grid background */
+  background-image: 
+    linear-gradient(to right, rgba(17, 17, 17, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(17, 17, 17, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input, textarea {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+:focus-visible {
+  outline: 3px solid var(--bauhaus-blue);
+  outline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   03. Bauhaus Top Ticker (Marquee Banner)
+   -------------------------------------------------------------------------- */
+.ticker-bar {
+  background-color: var(--bauhaus-black);
+  color: var(--bauhaus-cream);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  padding: 6px 0;
+  overflow: hidden;
+  white-space: nowrap;
+  border-bottom: var(--border-thin);
+  user-select: none;
+}
+
+.ticker-track {
+  display: inline-flex;
+  gap: 32px;
+  animation: ticker-slide 28s linear infinite;
+}
+
+.ticker-bar:hover .ticker-track {
+  animation-play-state: paused;
+}
+
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.geo-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.dot-red { background-color: var(--bauhaus-red); }
+.dot-blue { background-color: var(--bauhaus-blue); }
+.dot-yellow { background-color: var(--bauhaus-yellow); }
+.dot-black { background-color: var(--bauhaus-white); }
+
+@keyframes ticker-slide {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* --------------------------------------------------------------------------
+   04. Top Bauhaus Navigation Bar
+   -------------------------------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: rgba(247, 244, 235, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: var(--border-heavy);
+  height: var(--header-height);
+  transition: box-shadow var(--trans-fast);
+}
+
+.site-header.scrolled {
+  box-shadow: 0 4px 12px rgba(17, 17, 17, 0.08);
+}
+
+.nav-container {
+  max-width: var(--max-width);
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Brand Link & Geometric Monogram */
+.brand-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.bauhaus-emblem {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.emblem-circle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 18px;
+  height: 18px;
+  background-color: var(--bauhaus-red);
+  border-radius: 50%;
+  border: 1.5px solid var(--bauhaus-black);
+  z-index: 1;
+}
+
+.emblem-triangle {
+  position: absolute;
+  bottom: 0;
+  left: 4px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 20px solid var(--bauhaus-yellow);
+  z-index: 2;
+}
+
+.emblem-square {
+  position: absolute;
+  top: 6px;
+  right: 0;
+  width: 18px;
+  height: 18px;
+  background-color: var(--bauhaus-blue);
+  border: 1.5px solid var(--bauhaus-black);
+  z-index: 3;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--bauhaus-black);
+}
+
+.brand-sub {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--bauhaus-red);
+  letter-spacing: 0.08em;
+}
+
+/* Nav Menu */
+.nav-menu {
+  display: flex;
+  align-items: center;
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.nav-link {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--bauhaus-black);
+  padding: 8px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1.5px solid transparent;
+  border-radius: 0;
+  transition: all var(--trans-fast);
+  position: relative;
+}
+
+.nav-num {
+  color: var(--bauhaus-red);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.nav-link:hover {
+  background-color: var(--bauhaus-white);
+  border-color: var(--bauhaus-black);
+  box-shadow: var(--shadow-sm);
+  transform: translate(-1px, -1px);
+}
+
+.nav-link.active {
+  background-color: var(--bauhaus-yellow);
+  border-color: var(--bauhaus-black);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Nav Actions: Sound, GitHub & Mobile Toggle */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Mechanical Sound Button */
+.ctrl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  background-color: var(--bauhaus-white);
+  border: var(--border-thick);
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  transition: all var(--trans-fast);
+}
+
+.ctrl-btn:hover {
+  background-color: var(--bauhaus-gray-light);
+  transform: translate(-1px, -1px);
+  box-shadow: var(--shadow-md);
+}
+
+.ctrl-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0;
+}
+
+.ctrl-btn.sound-on {
+  background-color: var(--bauhaus-yellow);
+}
+
+/* GitHub Primary CTA Button */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 18px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: var(--border-thick);
+  background-color: var(--bauhaus-white);
+  color: var(--bauhaus-black);
+  box-shadow: var(--shadow-md);
+  transition: transform var(--trans-fast), box-shadow var(--trans-fast), background-color var(--trans-fast);
+  cursor: pointer;
+  user-select: none;
+}
+
+.btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0;
+}
+
+.btn-github {
+  background-color: var(--bauhaus-black);
+  color: var(--bauhaus-white);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-github:hover {
+  background-color: #24292e;
+  color: #fff;
+}
+
+.star-badge {
+  background-color: var(--bauhaus-yellow);
+  color: var(--bauhaus-black);
+  padding: 2px 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  border: 1px solid var(--bauhaus-black);
+}
+
+/* Primary, Secondary, Tertiary Buttons */
+.btn-primary {
+  background-color: var(--bauhaus-red);
+  color: var(--bauhaus-white);
+  border-color: var(--bauhaus-black);
+}
+
+.btn-primary:hover {
+  background-color: #d12735;
+}
+
+.btn-secondary {
+  background-color: var(--bauhaus-white);
+  color: var(--bauhaus-black);
+}
+
+.btn-secondary:hover {
+  background-color: var(--bauhaus-gray-light);
+}
+
+.btn-tertiary {
+  background-color: var(--bauhaus-yellow);
+  color: var(--bauhaus-black);
+}
+
+.btn-tertiary:hover {
+  background-color: #e09006;
+}
+
+/* Mobile Hamburger Toggle */
+.mobile-toggle {
+  display: none;
+  width: 40px;
+  height: 40px;
+  background-color: var(--bauhaus-white);
+  border: var(--border-thick);
+  box-shadow: var(--shadow-sm);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding: 6px;
+  transition: all var(--trans-fast);
+}
+
+.mobile-toggle .bar {
+  display: block;
+  width: 20px;
+  height: 2.5px;
+  background-color: var(--bauhaus-black);
+  transition: transform var(--trans-fast), opacity var(--trans-fast);
+}
+
+.mobile-toggle.active .bar-top {
+  transform: translateY(7.5px) rotate(45deg);
+}
+.mobile-toggle.active .bar-mid {
+  opacity: 0;
+}
+.mobile-toggle.active .bar-bot {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
+
+/* Mobile Drawer Overlay */
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 100%;
+  max-width: 360px;
+  height: 100vh;
+  background-color: var(--bauhaus-cream);
+  border-left: var(--border-heavy);
+  z-index: 1000;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
+  transition: right var(--trans-normal);
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-drawer.open {
+  right: 0;
+}
+
+.mobile-drawer-inner {
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: var(--border-thick);
+  padding-bottom: 16px;
+}
+
+.drawer-badge {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.drawer-close {
+  font-size: 2rem;
+  line-height: 1;
+  font-family: var(--font-mono);
+  padding: 4px;
+}
+
+.mobile-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 40px 0;
+}
+
+.mobile-nav-link {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--bauhaus-gray-mid);
+}
+
+.mobile-nav-link .m-num {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--bauhaus-red);
+}
+
+.mobile-drawer-footer {
+  border-top: var(--border-thick);
+  padding-top: 20px;
+}
+
+.bauhaus-shape-cluster {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.shape-c { width: 16px; height: 16px; border-radius: 50%; }
+.shape-t { width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-bottom: 16px solid var(--bauhaus-yellow); }
+.shape-s { width: 16px; height: 16px; }
+.red { background-color: var(--bauhaus-red); }
+.yellow { background-color: var(--bauhaus-yellow); }
+.blue { background-color: var(--bauhaus-blue); }
+
+.drawer-motto {
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   05. HERO SECTION: Animated Landing Page & Bauhaus Kinetic Sculpture
+   -------------------------------------------------------------------------- */
+.hero-section {
+  position: relative;
+  border-bottom: var(--border-heavy);
+  padding: 64px 24px 80px 24px;
+  overflow: hidden;
+}
+
+.hero-grid-wrapper {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 48px;
+  align-items: center;
+}
+
+/* Hero Content */
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+}
+
+.hero-meta-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.live-pulse {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--bauhaus-red);
+  box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.7);
+  animation: pulse-ring 2s infinite;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(230, 57, 70, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(230, 57, 70, 0); }
+}
+
+.pill-tag {
+  background-color: var(--bauhaus-yellow);
+  color: var(--bauhaus-black);
+  border: var(--border-thin);
+  padding: 2px 8px;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+/* Bold Smooth Kinetic Headline */
+.hero-heading {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7.5vw, 6.2rem);
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  color: var(--bauhaus-black);
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-line {
+  display: inline-flex;
+  align-items: baseline;
+  position: relative;
+}
+
+.char-wrap {
+  display: inline-block;
+  transition: transform var(--trans-fast), color var(--trans-fast);
+}
+
+.char-wrap:hover {
+  transform: translateY(-8px) scale(1.05);
+  color: var(--bauhaus-red);
+}
+
+.geo-hero-bullet {
+  display: inline-block;
+  width: clamp(22px, 3.5vw, 36px);
+  height: clamp(22px, 3.5vw, 36px);
+  border-radius: 50%;
+  border: var(--border-thick);
+  margin-left: 14px;
+  vertical-align: middle;
+}
+
+.red-circle {
+  background-color: var(--bauhaus-red);
+  animation: float-shape 6s ease-in-out infinite;
+}
+
+.geo-hero-square {
+  display: inline-block;
+  width: clamp(20px, 3vw, 32px);
+  height: clamp(20px, 3vw, 32px);
+  border: var(--border-thick);
+  margin-left: 14px;
+  vertical-align: middle;
+}
+
+.blue-square {
+  background-color: var(--bauhaus-blue);
+  animation: spin-shape 16s linear infinite;
+}
+
+@keyframes float-shape {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes spin-shape {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.hero-description {
+  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+  font-weight: 500;
+  line-height: 1.55;
+  color: #2b2b2b;
+  max-width: 580px;
+  margin-bottom: 32px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 44px;
+}
+
+/* Quantitative Bauhaus Metrics Bar */
+.hero-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  border-top: var(--border-thick);
+  padding-top: 24px;
+  max-width: 620px;
+}
+
+.stat-box {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--bauhaus-black);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+.stat-bar {
+  height: 4px;
+  width: 100%;
+}
+.bar-red { background-color: var(--bauhaus-red); }
+.bar-blue { background-color: var(--bauhaus-blue); }
+.bar-yellow { background-color: var(--bauhaus-yellow); }
+.bar-black { background-color: var(--bauhaus-black); }
+
+/* --------------------------------------------------------------------------
+   06. Hero Visual: Bauhaus Kinetic Stage & Interactive Canvas
+   -------------------------------------------------------------------------- */
+.hero-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bauhaus-stage {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  aspect-ratio: 1 / 1;
+  background-color: var(--bauhaus-white);
+  border: var(--border-monument);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  user-select: none;
+}
+
+/* Background Canvas Layer */
+#bauhausCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.sculpture-assembly {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Layer 1: Sun Wheel / Segment Disc */
+.wheel-element {
+  position: absolute;
+  top: 15%;
+  left: 18%;
+  width: 240px;
+  height: 240px;
+  transform-origin: center center;
+  animation: wheel-spin 36s linear infinite;
+  transition: transform 0.6s var(--ease-snappy);
+}
+
+.svg-wheel {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(4px 4px 0px rgba(17, 17, 17, 0.4));
+}
+
+@keyframes wheel-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Layer 2: Floating Blue Square with Grid */
+.geo-square {
+  position: absolute;
+  top: 48%;
+  right: 14%;
+  width: 110px;
+  height: 110px;
+  background-color: var(--bauhaus-blue);
+  border: var(--border-heavy);
+  box-shadow: var(--shadow-md);
+  animation: square-orbit 14s ease-in-out infinite alternate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inner-grid {
+  width: 70%;
+  height: 70%;
+  border: 2px solid var(--bauhaus-white);
+  background: 
+    repeating-linear-gradient(45deg, transparent, transparent 6px, var(--bauhaus-white) 6px, var(--bauhaus-white) 8px);
+}
+
+@keyframes square-orbit {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(-20px, 20px) rotate(45deg); }
+  100% { transform: translate(15px, -15px) rotate(90deg); }
+}
+
+/* Layer 3: Equilateral Yellow Triangle */
+.geo-triangle {
+  position: absolute;
+  bottom: 12%;
+  left: 12%;
+  width: 0;
+  height: 0;
+  border-left: 70px solid transparent;
+  border-right: 70px solid transparent;
+  border-bottom: 120px solid var(--bauhaus-yellow);
+  filter: drop-shadow(4px 4px 0px #111111);
+  animation: triangle-drift 10s ease-in-out infinite alternate;
+}
+
+@keyframes triangle-drift {
+  0% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(-30px) rotate(15deg); }
+}
+
+/* Layer 4: Striped Bauhaus Pillar */
+.geo-pillar {
+  position: absolute;
+  bottom: 0;
+  right: 28%;
+  width: 44px;
+  height: 160px;
+  background-color: var(--bauhaus-black);
+  border: var(--border-thick);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 4px;
+}
+
+.pillar-stripe {
+  height: 12px;
+  background-color: var(--bauhaus-cream);
+  border: 1px solid var(--bauhaus-black);
+}
+
+/* Layer 5: Hollow Black Circle */
+.geo-circle-hollow {
+  position: absolute;
+  top: 10%;
+  right: 10%;
+  width: 70px;
+  height: 70px;
+  border: 8px solid var(--bauhaus-black);
+  border-radius: 50%;
+  background: transparent;
+  animation: pulse-hollow 8s ease-in-out infinite alternate;
+}
+
+@keyframes pulse-hollow {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.15) translate(-10px, 10px); }
+}
+
+/* Precision CAD / Architectural Blueprint Overlay */
+.cad-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.cad-coord {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  background-color: var(--bauhaus-black);
+  color: var(--bauhaus-white);
+  padding: 2px 6px;
+  letter-spacing: 0.05em;
+}
+
+.cad-tl { top: 12px; left: 12px; }
+.cad-tr { top: 12px; right: 12px; }
+
+.cad-crosshair {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.cad-crosshair::before, .cad-crosshair::after {
+  content: '';
+  position: absolute;
+  background-color: var(--bauhaus-black);
+}
+.cad-crosshair::before { top: 11px; left: 0; width: 24px; height: 2px; }
+.cad-crosshair::after { left: 11px; top: 0; width: 2px; height: 24px; }
+
+/* Interactive Floating Badge */
+.bauhaus-floating-badge {
+  position: absolute;
+  bottom: 24px;
+  right: 20px;
+  background-color: var(--bauhaus-yellow);
+  border: var(--border-thick);
+  padding: 6px 12px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  pointer-events: auto;
+  cursor: grab;
+  transition: transform var(--trans-fast);
+}
+
+.bauhaus-floating-badge:hover {
+  transform: scale(1.04) rotate(-2deg);
+}
+
+.badge-sub {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--bauhaus-red);
+}
+
+.badge-main {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+/* Stage Bottom Caption Bar */
+.stage-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--bauhaus-black);
+  color: var(--bauhaus-cream);
+  padding: 5px 12px;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  z-index: 10;
+}
+
+/* --------------------------------------------------------------------------
+   07. COMMON SECTION FRAMEWORK & HEADERS
+   -------------------------------------------------------------------------- */
+.section-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+.section-header {
+  margin-bottom: 48px;
+  position: relative;
+}
+
+.header-prefix {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.section-index {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--bauhaus-white);
+  background-color: var(--bauhaus-black);
+  padding: 2px 8px;
+}
+
+.prefix-line {
+  flex-grow: 0;
+  width: 32px;
+  height: 3px;
+  background-color: var(--bauhaus-red);
+}
+
+.section-category {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--bauhaus-black);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--bauhaus-black);
+  margin-bottom: 14px;
+}
+
+.section-tagline {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  max-width: 680px;
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   08. SECTION 01: REPOSITORY SHOWCASE & TOOLBAR
+   -------------------------------------------------------------------------- */
+.repo-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background-color: var(--bauhaus-white);
+  border: var(--border-heavy);
+  padding: 16px 20px;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 36px;
+}
+
+.filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: var(--border-thin);
+  background-color: var(--bauhaus-cream);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition: all var(--trans-fast);
+}
+
+.chip-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.dot-all { background-color: var(--bauhaus-black); }
+
+.filter-chip:hover {
+  background-color: var(--bauhaus-white);
+  border-color: var(--bauhaus-black);
+  transform: translateY(-2px);
+}
+
+.filter-chip.active {
+  background-color: var(--bauhaus-black);
+  color: var(--bauhaus-white);
+  border-color: var(--bauhaus-black);
+  box-shadow: var(--shadow-sm);
+}
+
+.chip-count {
+  opacity: 0.75;
+  font-size: 0.7rem;
+}
+
+/* Search Box & Sync Toolbar */
+.toolbar-search-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-grow: 1;
+  max-width: 440px;
+}
+
+.search-input-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  border: var(--border-thick);
+  background-color: var(--bauhaus-white);
+  padding: 6px 10px;
+}
+
+.search-icon {
+  color: var(--bauhaus-black);
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+.search-input {
+  width: 100%;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--bauhaus-black);
+}
+
+.search-input::placeholder {
+  color: #888888;
+}
+
+.search-clear {
+  font-size: 1.2rem;
+  line-height: 1;
+  padding: 0 4px;
+  color: var(--bauhaus-black);
+}
+
+/* GitHub Live Sync Button */
+.btn-sync-github {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background-color: var(--bauhaus-yellow);
+  border: var(--border-thick);
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  transition: all var(--trans-fast);
+  white-space: nowrap;
+}
+
+.btn-sync-github:hover {
+  background-color: #f7a917;
+  transform: translateY(-1px);
+}
+
+/* GitHub Sync Custom User Input Panel */
+.github-sync-panel {
+  background-color: var(--bauhaus-white);
+  border: var(--border-heavy);
+  box-shadow: var(--shadow-md);
+  padding: 20px;
+  margin-bottom: 32px;
+  animation: slide-down 0.25s var(--ease-snappy);
+}
+
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.sync-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.sync-input-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.input-prefix {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  background-color: var(--bauhaus-gray-light);
+  border: var(--border-thick);
+  padding: 8px 10px;
+}
+
+.sync-text-input {
+  flex-grow: 1;
+  min-width: 160px;
+  border: var(--border-thick);
+  padding: 8px 12px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  background-color: var(--bauhaus-white);
+}
+
+.btn-sync-submit {
+  background-color: var(--bauhaus-blue);
+  color: var(--bauhaus-white);
+  border: var(--border-thick);
+  padding: 8px 16px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.btn-sync-cancel {
+  background-color: var(--bauhaus-gray-light);
+  border: var(--border-thick);
+  padding: 8px 14px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.sync-hint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* Projects Grid */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 32px;
+}
+
+/* Individual Bauhaus Project Card */
+.repo-card {
+  background-color: var(--bauhaus-white);
+  border: var(--border-heavy);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform var(--trans-fast), box-shadow var(--trans-fast);
+}
+
+.repo-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Geometric Color Band at the Top of Each Card */
+.card-band {
+  height: 10px;
+  width: 100%;
+  border-bottom: var(--border-thick);
+}
+.band-red { background-color: var(--bauhaus-red); }
+.band-blue { background-color: var(--bauhaus-blue); }
+.band-yellow { background-color: var(--bauhaus-yellow); }
+.band-black { background-color: var(--bauhaus-black); }
+
+/* Card Body */
+.card-inner {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-top-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.repo-type-tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 2px 6px;
+  border: var(--border-thin);
+}
+.tag-red { background-color: #fee2e2; color: #991b1b; }
+.tag-blue { background-color: #dbeafe; color: #1e40af; }
+.tag-yellow { background-color: #fef3c7; color: #92400e; }
+.tag-black { background-color: #f3f4f6; color: #111827; }
+
+.repo-stats {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--bauhaus-black);
+}
+
+.repo-stat-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.repo-title {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+
+.repo-title a {
+  transition: color var(--trans-fast);
+}
+.repo-title a:hover {
+  color: var(--bauhaus-red);
+}
+
+.repo-desc {
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: #3f3f3f;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+/* Card Tags (Languages / Tech Stack) */
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 24px;
+}
+
+.tag-badge {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  background-color: var(--bauhaus-gray-light);
+  border: 1px solid var(--bauhaus-black);
+  padding: 2px 7px;
+}
+
+/* Card Bottom Action Bar */
+.card-actions {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 8px;
+  border-top: var(--border-thick);
+  padding-top: 16px;
+}
+
+.btn-card {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 6px 10px;
+  border: var(--border-thick);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: all var(--trans-fast);
+}
+
+.btn-card-demo {
+  background-color: var(--bauhaus-black);
+  color: var(--bauhaus-white);
+}
+.btn-card-demo:hover {
+  background-color: var(--bauhaus-red);
+}
+
+.btn-card-git {
+  background-color: var(--bauhaus-white);
+}
+.btn-card-git:hover {
+  background-color: var(--bauhaus-gray-light);
+}
+
+.btn-card-info {
+  background-color: var(--bauhaus-yellow);
+}
+.btn-card-info:hover {
+  background-color: #f7a917;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 64px 20px;
+  background-color: var(--bauhaus-white);
+  border: var(--border-heavy);
+  box-shadow: var(--shadow-md);
+  margin-top: 24px;
+}
+
+.empty-icon-geo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.empty-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: var(--bauhaus-red);
+  border: var(--border-thick);
+}
+
+.empty-triangle {
+  width: 0;
+  height: 0;
+  border-left: 16px solid transparent;
+  border-right: 16px solid transparent;
+  border-bottom: 28px solid var(--bauhaus-yellow);
+}
+
+.empty-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.empty-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+/* --------------------------------------------------------------------------
+   09. SECTION 02: MANIFESTO (Philosophy of Code)
+   -------------------------------------------------------------------------- */
+.manifesto-section {
+  background-color: var(--bauhaus-gray-light);
+  border-top: var(--border-heavy);
+  border-bottom: var(--border-heavy);
+}
+
+.manifesto-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 56px;
+}
+
+.manifesto-card {
+  background-color: var(--bauhaus-white);
+  border: var(--border-heavy);
+  box-shadow: var(--shadow-md);
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--trans-fast);
+}
+
+.manifesto-card:hover {
+  transform: translateY(-4px);
+}
+
+.card-num-watermark {
+  position: absolute;
+  top: 10px;
+  right: 16px;
+  font-family: var(--font-display);
+  font-size: 4rem;
+  font-weight: 800;
+  color: rgba(17, 17, 17, 0.08);
+  line-height: 1;
+  user-select: none;
+}
+
+.card-geo-mark {
+  width: 14px;
+  height: 14px;
+  margin-bottom: 20px;
+  border: var(--border-thick);
+}
+.red-mark { background-color: var(--bauhaus-red); border-radius: 50%; }
+.blue-mark { background-color: var(--bauhaus-blue); }
+.yellow-mark { 
+  width: 0; 
+  height: 0; 
+  border-left: 8px solid transparent; 
+  border-right: 8px solid transparent; 
+  border-bottom: 16px solid var(--bauhaus-yellow);
+  border-top: none;
+}
+
+.manifesto-heading {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.manifesto-body {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #333333;
+  margin-bottom: 24px;
+  flex-grow: 1;
+}
+
+.manifesto-footer {
+  border-top: var(--border-thick);
+  padding-top: 12px;
+}
+
+.footer-tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--bauhaus-red);
+}
+
+/* Bauhaus Quote Banner */
+.bauhaus-quote-banner {
+  background-color: var(--bauhaus-black);
+  color: var(--bauhaus-cream);
+  border: var(--border-heavy);
+  padding: 48px;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.quote-symbol {
+  font-family: var(--font-display);
+  font-size: 4rem;
+  line-height: 0.8;
+  color: var(--bauhaus-yellow);
+}
+
+.quote-text {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+
+.quote-author {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--bauhaus-red);
+  font-style: normal;
+}
+
+/* --------------------------------------------------------------------------
+   10. SECTION 03: TECHNICAL MATRIX (Mastery)
+   -------------------------------------------------------------------------- */
+.stack-matrix {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.stack-column {
+  background-color: var(--bauhaus-white);
+  border: var(--border-heavy);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+}
+
+.column-header {
+  padding: 16px 20px;
+  border-bottom: var(--border-heavy);
+  background-color: var(--bauhaus-cream);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.col-indicator {
+  width: 10px;
+  height: 10px;
+  border: var(--border-thick);
+}
+.ind-red { background-color: var(--bauhaus-red); border-radius: 50%; }
+.ind-blue { background-color: var(--bauhaus-blue); }
+.ind-yellow { 
+  width: 0; height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 12px solid var(--bauhaus-yellow);
+  border-top: none;
+}
+
+.col-title {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+.stack-items {
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.stack-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.item-name {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+}
+
+.item-level {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.meter-bar {
+  width: 100%;
+  height: 8px;
+  background-color: var(--bauhaus-gray-light);
+  border: var(--border-thin);
+  overflow: hidden;
+}
+
+.meter-fill {
+  height: 100%;
+  transition: width 1s var(--ease-snappy);
+}
+.fill-red { background-color: var(--bauhaus-red); }
+.fill-blue { background-color: var(--bauhaus-blue); }
+.fill-yellow { background-color: var(--bauhaus-yellow); }
+
+/* --------------------------------------------------------------------------
+   11. SECTION 04: INTERACTIVE TERMINAL
+   -------------------------------------------------------------------------- */
+.terminal-container {
+  background-color: #0d0f12;
+  border: var(--border-monument);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-mono);
+  color: #f0f0f0;
+}
+
+.terminal-bar {
+  background-color: #1a1d24;
+  border-bottom: var(--border-thick);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.term-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.term-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 1px solid rgba(0,0,0,0.4);
+}
+.dot-red-btn { background-color: var(--bauhaus-red); }
+.dot-yellow-btn { background-color: var(--bauhaus-yellow); }
+.dot-green-btn { background-color: #10B981; }
+
+.term-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #9ca3af;
+}
+
+.term-status {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #34d399;
+}
+
+/* Output Screen */
+.terminal-body {
+  padding: 20px;
+  min-height: 220px;
+  max-height: 380px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.term-line {
+  word-break: break-all;
+}
+
+.output-system { color: #94a3b8; }
+.output-prompt { color: #f8fafc; font-weight: 700; }
+.output-success { color: #34d399; }
+.output-info { color: #38bdf8; }
+.output-error { color: #f87171; }
+.term-highlight { color: var(--bauhaus-yellow); font-weight: 700; }
+
+.t-usr { color: #f43f5e; font-weight: 700; }
+.t-dir { color: #38bdf8; }
+
+/* Quick Command Chips */
+.terminal-chips {
+  background-color: #14171f;
+  border-top: 1px solid #282d3c;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chips-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #64748b;
+  margin-right: 4px;
+}
+
+.term-chip {
+  background-color: #242938;
+  color: #e2e8f0;
+  border: 1px solid #3e465e;
+  padding: 3px 8px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  transition: all var(--trans-fast);
+}
+
+.term-chip:hover {
+  background-color: var(--bauhaus-blue);
+  color: #fff;
+  border-color: var(--bauhaus-white);
+  transform: translateY(-1px);
+}
+
+/* Terminal Input Line */
+.terminal-input-row {
+  display: flex;
+  align-items: center;
+  border-top: var(--border-thick);
+  background-color: #0d0f12;
+  padding: 12px 16px;
+}
+
+.term-prompt-symbol {
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.term-input {
+  flex-grow: 1;
+  color: #ffffff;
+  font-size: 0.85rem;
+  caret-color: var(--bauhaus-yellow);
+}
+
+.term-enter-btn {
+  background-color: var(--bauhaus-yellow);
+  color: var(--bauhaus-black);
+  border: var(--border-thick);
+  padding: 4px 10px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  margin-left: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   12. PROJECT DETAIL MODAL DIALOG
+   -------------------------------------------------------------------------- */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(17, 17, 17, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: modal-fade-in 0.2s var(--ease-snappy);
+}
+
+.modal-backdrop[hidden] {
+  display: none;
+}
+
+@keyframes modal-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-box {
+  background-color: var(--bauhaus-white);
+  border: var(--border-monument);
+  box-shadow: 12px 12px 0px var(--bauhaus-black);
+  max-width: 680px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  padding: 16px 24px;
+  border-bottom: var(--border-thick);
+  background-color: var(--bauhaus-cream);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-tag-badge {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  background-color: var(--bauhaus-yellow);
+  border: var(--border-thin);
+  padding: 3px 8px;
+}
+
+.modal-close {
+  font-size: 1.8rem;
+  line-height: 1;
+  font-weight: 700;
+  padding: 2px 6px;
+  cursor: pointer;
+  transition: transform var(--trans-fast);
+}
+
+.modal-close:hover {
+  transform: scale(1.2) rotate(90deg);
+  color: var(--bauhaus-red);
+}
+
+.modal-body {
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modal-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: var(--border-thick);
+  padding-bottom: 12px;
+}
+
+.modal-title {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 800;
+}
+
+.modal-stars {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--bauhaus-red);
+}
+
+.modal-desc {
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: #2d2d2d;
+}
+
+.modal-specs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  background-color: var(--bauhaus-gray-light);
+  border: var(--border-thick);
+  padding: 14px 16px;
+}
+
+.spec-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.spec-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.spec-value {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.modal-architecture {
+  border: var(--border-thick);
+  padding: 16px;
+  background-color: var(--bauhaus-white);
+}
+
+.arch-heading {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--bauhaus-blue);
+  margin-bottom: 10px;
+}
+
+.arch-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+.arch-list li {
+  position: relative;
+  padding-left: 20px;
+  line-height: 1.45;
+}
+
+.arch-list li::before {
+  content: '■';
+  position: absolute;
+  left: 0;
+  font-size: 0.75rem;
+  color: var(--bauhaus-red);
+}
+
+/* Modal Clone Snippet Box */
+.modal-clone-box {
+  background-color: var(--bauhaus-black);
+  color: var(--bauhaus-cream);
+  padding: 14px 16px;
+  border: var(--border-thick);
+}
+
+.clone-box-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #a3a3a3;
+  margin-bottom: 6px;
+}
+
+.clone-command-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.clone-code {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: #38bdf8;
+  word-break: break-all;
+}
+
+.btn-copy-code {
+  background-color: var(--bauhaus-yellow);
+  color: var(--bauhaus-black);
+  border: 1px solid var(--bauhaus-white);
+  padding: 4px 10px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  transition: all var(--trans-fast);
+}
+
+.btn-copy-code:hover {
+  background-color: var(--bauhaus-white);
+}
+
+.modal-footer {
+  padding: 16px 24px;
+  background-color: var(--bauhaus-cream);
+  border-top: var(--border-thick);
+  display: flex;
+  gap: 12px;
+}
+
+/* --------------------------------------------------------------------------
+   13. TOAST NOTIFICATION
+   -------------------------------------------------------------------------- */
+.toast-notification {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background-color: var(--bauhaus-black);
+  color: var(--bauhaus-white);
+  border: var(--border-thick);
+  padding: 12px 18px;
+  box-shadow: var(--shadow-md);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 10001;
+  animation: toast-slide 0.25s var(--ease-snappy);
+}
+
+.toast-notification[hidden] {
+  display: none;
+}
+
+.toast-geo {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+@keyframes toast-slide {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* --------------------------------------------------------------------------
+   14. SITE FOOTER
+   -------------------------------------------------------------------------- */
+.site-footer {
+  background-color: var(--bauhaus-white);
+  border-top: var(--border-monument);
+  padding-top: 64px;
+}
+
+.footer-grid {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px 64px 24px;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+  gap: 40px;
+}
+
+.footer-emblem {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.f-circle { width: 14px; height: 14px; border-radius: 50%; background-color: var(--bauhaus-red); }
+.f-square { width: 14px; height: 14px; background-color: var(--bauhaus-blue); }
+.f-triangle { 
+  width: 0; height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 14px solid var(--bauhaus-yellow);
+}
+
+.footer-logo {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+
+.footer-bio {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin-bottom: 20px;
+  max-width: 320px;
+}
+
+.footer-license {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--bauhaus-red);
+}
+
+.footer-heading {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  border-bottom: var(--border-thick);
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-links a {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: #333;
+  transition: color var(--trans-fast), transform var(--trans-fast);
+  display: inline-block;
+}
+
+.footer-links a:hover {
+  color: var(--bauhaus-red);
+  transform: translateX(4px);
+}
+
+/* Dispatch Availability Box */
+.availability-card {
+  background-color: var(--bauhaus-cream);
+  border: var(--border-thick);
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.avail-pulse {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #10B981;
+  flex-shrink: 0;
+  animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.avail-text strong {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.avail-text p {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.btn-back-to-top {
+  width: 100%;
+  background-color: var(--bauhaus-black);
+  color: var(--bauhaus-white);
+  border: var(--border-thick);
+  padding: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  transition: all var(--trans-fast);
+}
+
+.btn-back-to-top:hover {
+  background-color: var(--bauhaus-yellow);
+  color: var(--bauhaus-black);
+}
+
+/* Sub-footer bottom bar */
+.sub-footer {
+  border-top: var(--border-thick);
+  background-color: var(--bauhaus-cream);
+  padding: 14px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* --------------------------------------------------------------------------
+   15. RESPONSIVE BREAKPOINTS (Mobile, Tablet, Desktop)
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .hero-grid-wrapper {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .hero-visual {
+    order: -1;
+    max-width: 440px;
+    margin: 0 auto;
+  }
+
+  .manifesto-grid, .stack-matrix {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --header-height: 64px;
+  }
+
+  .nav-menu {
+    display: none;
+  }
+
+  .mobile-toggle {
+    display: flex;
+  }
+
+  .hero-section {
+    padding: 40px 16px 60px 16px;
+  }
+
+  .hero-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .section-container {
+    padding: 60px 16px;
+  }
+
+  .repo-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .toolbar-search-wrap {
+    max-width: 100%;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sub-footer {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

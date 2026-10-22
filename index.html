@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Bauhaus-inspired GitHub Portfolio showcasing open-source repositories, developer tools, and web engineering projects. Form follows function.">
+  <meta name="theme-color" content="#111111">
+  <title>WERKSTATT // GitHub Portfolio &amp; Projects</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <!-- Google Fonts: Syne (Ultra-bold display), Space Grotesk (Geometric body), JetBrains Mono (Code) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Announcement / Bauhaus Ticker Bar -->
+  <div class="ticker-bar" aria-label="Status banner">
+    <div class="ticker-track">
+      <span class="ticker-item"><span class="geo-dot dot-red"></span> FORM FOLLOWS FUNCTION</span>
+      <span class="ticker-item"><span class="geo-dot dot-blue"></span> OPEN-SOURCE ARCHIVE</span>
+      <span class="ticker-item"><span class="geo-dot dot-yellow"></span> ZERO BLOAT // PURE WEB STANDARDS</span>
+      <span class="ticker-item"><span class="geo-dot dot-black"></span> BAUHAUS DIGITAL WERKSTATT</span>
+      <span class="ticker-item"><span class="geo-dot dot-red"></span> READY FOR GITHUB PAGES</span>
+      <span class="ticker-item"><span class="geo-dot dot-blue"></span> ART &amp; TECHNOLOGY: A NEW UNITY</span>
+      <!-- Duplicate track for seamless infinite marquee loop -->
+      <span class="ticker-item"><span class="geo-dot dot-red"></span> FORM FOLLOWS FUNCTION</span>
+      <span class="ticker-item"><span class="geo-dot dot-blue"></span> OPEN-SOURCE ARCHIVE</span>
+      <span class="ticker-item"><span class="geo-dot dot-yellow"></span> ZERO BLOAT // PURE WEB STANDARDS</span>
+      <span class="ticker-item"><span class="geo-dot dot-black"></span> BAUHAUS DIGITAL WERKSTATT</span>
+      <span class="ticker-item"><span class="geo-dot dot-red"></span> READY FOR GITHUB PAGES</span>
+      <span class="ticker-item"><span class="geo-dot dot-blue"></span> ART &amp; TECHNOLOGY: A NEW UNITY</span>
+    </div>
+  </div>
+
+  <!-- Top Bauhaus Navigation Bar -->
+  <header class="site-header" id="navbar">
+    <div class="nav-container">
+      <!-- Brand Logo / Geometric Bauhaus Emblem -->
+      <a href="#hero" class="brand-link" aria-label="Werkstatt Portfolio Home">
+        <div class="bauhaus-emblem" aria-hidden="true">
+          <span class="emblem-circle"></span>
+          <span class="emblem-triangle"></span>
+          <span class="emblem-square"></span>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">WERKSTATT</span>
+          <span class="brand-sub">GIT.DEV // 2026</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="nav-menu" id="navMenu" aria-label="Primary navigation">
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="#projects" class="nav-link">
+              <span class="nav-num">01</span>
+              <span class="nav-label">REPOSITORIES</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#manifesto" class="nav-link">
+              <span class="nav-num">02</span>
+              <span class="nav-label">MANIFESTO</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#stack" class="nav-link">
+              <span class="nav-num">03</span>
+              <span class="nav-label">STACK</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#terminal" class="nav-link">
+              <span class="nav-num">04</span>
+              <span class="nav-label">TERMINAL</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Nav Controls: Sound, Live GitHub Button & Mobile Toggle -->
+      <div class="nav-actions">
+        <!-- Bauhaus Sound FX Toggle -->
+        <button type="button" class="ctrl-btn sound-toggle" id="soundToggle" title="Toggle mechanical sound feedback" aria-label="Toggle mechanical sound effects">
+          <span class="sound-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path id="soundWaves" d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+            </svg>
+          </span>
+          <span class="sound-label">SOUND</span>
+        </button>
+
+        <!-- Primary GitHub CTA Button -->
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="btn btn-github" id="headerGithubLink">
+          <svg class="github-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          <span class="btn-text">GITHUB</span>
+          <span class="star-badge" id="globalStarCount">★ 1.8K</span>
+        </a>
+
+        <!-- Mobile Hamburger Toggle -->
+        <button type="button" class="mobile-toggle" id="mobileMenuBtn" aria-expanded="false" aria-controls="navMenu" aria-label="Toggle navigation menu">
+          <span class="bar bar-top"></span>
+          <span class="bar bar-mid"></span>
+          <span class="bar bar-bot"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Overlay -->
+  <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+    <div class="mobile-drawer-inner">
+      <div class="drawer-header">
+        <span class="drawer-badge">INDEX // NAVIGATION</span>
+        <button type="button" class="drawer-close" id="drawerCloseBtn" aria-label="Close menu">&times;</button>
+      </div>
+      <ul class="mobile-nav-list">
+        <li><a href="#projects" class="mobile-nav-link"><span class="m-num">01</span> REPOSITORIES</a></li>
+        <li><a href="#manifesto" class="mobile-nav-link"><span class="m-num">02</span> MANIFESTO</a></li>
+        <li><a href="#stack" class="mobile-nav-link"><span class="m-num">03</span> TECHNICAL STACK</a></li>
+        <li><a href="#terminal" class="mobile-nav-link"><span class="m-num">04</span> TERMINAL / DISPATCH</a></li>
+      </ul>
+      <div class="mobile-drawer-footer">
+        <div class="bauhaus-shape-cluster">
+          <span class="shape-c red"></span>
+          <span class="shape-t yellow"></span>
+          <span class="shape-s blue"></span>
+        </div>
+        <p class="drawer-motto">"Art &amp; Technology — A new unity."</p>
+      </div>
+    </div>
+  </div>
+
+  <main id="mainContent">
+
+    <!-- HERO SECTION (Animated Landing Page) -->
+    <section class="hero-section" id="hero">
+      <div class="hero-grid-wrapper">
+
+        <!-- Hero Left Column: Kinetic Typography & Intro -->
+        <div class="hero-content">
+          <div class="hero-meta-label">
+            <span class="live-pulse" aria-hidden="true"></span>
+            <span class="mono-meta">PORTFOLIO.V2 // OPEN-SOURCE WORKSHOP</span>
+            <span class="pill-tag">BAUHAUS 1919-2026</span>
+          </div>
+
+          <!-- Bold Smooth Kinetic Headline -->
+          <h1 class="hero-heading">
+            <span class="hero-line line-1">
+              <span class="char-wrap">F</span><span class="char-wrap">O</span><span class="char-wrap">R</span><span class="char-wrap">M</span>
+              <span class="geo-hero-bullet red-circle" title="Geometric Circle"></span>
+            </span>
+            <span class="hero-line line-2">
+              <span class="char-wrap">F</span><span class="char-wrap">O</span><span class="char-wrap">L</span><span class="char-wrap">L</span><span class="char-wrap">O</span><span class="char-wrap">W</span><span class="char-wrap">S</span>
+            </span>
+            <span class="hero-line line-3">
+              <span class="char-wrap">F</span><span class="char-wrap">U</span><span class="char-wrap">N</span><span class="char-wrap">C</span><span class="char-wrap">T</span><span class="char-wrap">I</span><span class="char-wrap">O</span><span class="char-wrap">N</span>
+              <span class="geo-hero-square blue-square" title="Geometric Square"></span>
+            </span>
+          </h1>
+
+          <p class="hero-description">
+            Software engineer and open-source craftsman. Synthesizing Bauhaus geometric discipline with modern browser APIs, distributed systems, and razor-sharp web engineering.
+          </p>
+
+          <!-- Call to action cluster -->
+          <div class="hero-actions">
+            <a href="#projects" class="btn btn-primary">
+              <span class="btn-text">EXPLORE REPOSITORIES</span>
+              <span class="btn-arrow" aria-hidden="true">↓</span>
+            </a>
+            <a href="#terminal" class="btn btn-secondary">
+              <span class="btn-text">QUICK CLONE</span>
+              <span class="btn-mono-icon" aria-hidden="true">&gt;_</span>
+            </a>
+            <button type="button" class="btn btn-tertiary" id="shuffleArtBtn" title="Rearrange kinetic Bauhaus sculpture">
+              <span class="btn-text">COMPOSE ART</span>
+              <span class="btn-dice" aria-hidden="true">⚂</span>
+            </button>
+          </div>
+
+          <!-- Quantitative Bauhaus Metrics Bar -->
+          <div class="hero-stats-grid">
+            <div class="stat-box">
+              <span class="stat-num" id="statRepoCount">42+</span>
+              <span class="stat-label">REPOSITORIES</span>
+              <span class="stat-bar bar-red"></span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-num">1.8K</span>
+              <span class="stat-label">GITHUB STARS</span>
+              <span class="stat-bar bar-blue"></span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-num">100%</span>
+              <span class="stat-label">WEB STANDARDS</span>
+              <span class="stat-bar bar-yellow"></span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-num">0KB</span>
+              <span class="stat-label">HEAVY FRAMEWORKS</span>
+              <span class="stat-bar bar-black"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Right Column: Animated Bauhaus Kinetic Composition -->
+        <div class="hero-visual" id="heroVisual">
+          <div class="bauhaus-stage" id="bauhausStage" aria-label="Interactive Bauhaus visual composition">
+            
+            <!-- Dynamic Interactive Canvas Layer (reacts to mouse) -->
+            <canvas id="bauhausCanvas" width="560" height="560" aria-hidden="true"></canvas>
+
+            <!-- Layered SVG Kinetic Sculpture Pieces -->
+            <div class="sculpture-assembly" id="sculptureAssembly">
+              
+              <!-- Primary Sun Wheel / Rotating Segment Disc -->
+              <div class="sculpture-element wheel-element" id="wheelElement">
+                <svg viewBox="0 0 200 200" class="svg-wheel">
+                  <circle cx="100" cy="100" r="94" fill="none" stroke="#111111" stroke-width="4"/>
+                  <!-- Segment 1: Red -->
+                  <path d="M100,100 L100,6 A94,94 0 0,1 194,100 Z" fill="#E63946"/>
+                  <!-- Segment 2: Blue -->
+                  <path d="M100,100 L194,100 A94,94 0 0,1 100,194 Z" fill="#1D4ED8"/>
+                  <!-- Segment 3: Yellow -->
+                  <path d="M100,100 L100,194 A94,94 0 0,1 6,100 Z" fill="#F59E0B"/>
+                  <!-- Center Core -->
+                  <circle cx="100" cy="100" r="28" fill="#F7F4EB" stroke="#111111" stroke-width="4"/>
+                  <circle cx="100" cy="100" r="8" fill="#111111"/>
+                </svg>
+              </div>
+
+              <!-- Drifting Geometric Primitives -->
+              <div class="sculpture-element geo-square" id="geoSquare">
+                <span class="inner-grid"></span>
+              </div>
+
+              <div class="sculpture-element geo-triangle" id="geoTriangle"></div>
+
+              <div class="sculpture-element geo-pillar" id="geoPillar">
+                <span class="pillar-stripe"></span>
+                <span class="pillar-stripe"></span>
+                <span class="pillar-stripe"></span>
+              </div>
+
+              <div class="sculpture-element geo-circle-hollow" id="geoHollow"></div>
+
+              <!-- Bauhaus Precision Ruler / Coordinate Overlay -->
+              <div class="cad-overlay" aria-hidden="true">
+                <div class="cad-coord cad-tl">X: <span id="coordX">042</span> // Y: <span id="coordY">108</span></div>
+                <div class="cad-coord cad-tr">RAD: 360&deg; // SCALE: 1.0</div>
+                <div class="cad-crosshair"></div>
+                <div class="cad-grid-ruler"></div>
+              </div>
+
+              <!-- Interactive Floating Badge -->
+              <div class="bauhaus-floating-badge" id="interactiveBadge">
+                <span class="badge-sub">INTERACTIVE</span>
+                <span class="badge-main">DRAG / MOVE CURSOR</span>
+              </div>
+            </div>
+
+            <!-- Bottom Caption of Hero Visual -->
+            <div class="stage-footer">
+              <span class="stage-label">FIG. 01 — KINETIC BAUHAUS SYNTHESIS</span>
+              <span class="stage-speed" id="fpsDisplay">60 FPS // SVG+CANVAS</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 01: GITHUB REPOSITORIES -->
+    <section class="section-container" id="projects">
+      <!-- Section Header with Bauhaus Architectural Frame -->
+      <div class="section-header">
+        <div class="header-prefix">
+          <span class="section-index">01</span>
+          <span class="prefix-line"></span>
+          <span class="section-category">SHOWCASE</span>
+        </div>
+        <h2 class="section-title">SELECTED REPOSITORIES</h2>
+        <p class="section-tagline">
+          Curated open-source software, high-performance web tooling, and architectural systems built with zero extraneous dependencies.
+        </p>
+      </div>
+
+      <!-- Live Repository Controls Toolbar -->
+      <div class="repo-toolbar">
+        <!-- Category Filters -->
+        <div class="filter-group" role="tablist" aria-label="Filter repositories by category">
+          <button type="button" class="filter-chip active" data-filter="all" role="tab" aria-selected="true">
+            <span class="chip-dot dot-all"></span> ALL <span class="chip-count" id="countAll">(6)</span>
+          </button>
+          <button type="button" class="filter-chip" data-filter="web" role="tab" aria-selected="false">
+            <span class="chip-dot dot-red"></span> WEB APPS <span class="chip-count" id="countWeb">(2)</span>
+          </button>
+          <button type="button" class="filter-chip" data-filter="tools" role="tab" aria-selected="false">
+            <span class="chip-dot dot-blue"></span> DEV TOOLS <span class="chip-count" id="countTools">(2)</span>
+          </button>
+          <button type="button" class="filter-chip" data-filter="systems" role="tab" aria-selected="false">
+            <span class="chip-dot dot-yellow"></span> SYSTEMS &amp; CLI <span class="chip-count" id="countSystems">(1)</span>
+          </button>
+          <button type="button" class="filter-chip" data-filter="creative" role="tab" aria-selected="false">
+            <span class="chip-dot dot-black"></span> CREATIVE CODE <span class="chip-count" id="countCreative">(1)</span>
+          </button>
+        </div>
+
+        <!-- Search & Dynamic GitHub Profile Input -->
+        <div class="toolbar-search-wrap">
+          <div class="search-input-box">
+            <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="projectSearch" class="search-input" placeholder="Search by name, tag, or language..." aria-label="Search repositories">
+            <button type="button" class="search-clear" id="searchClear" aria-label="Clear search" hidden>&times;</button>
+          </div>
+
+          <!-- Dynamic GitHub Live Sync Switch -->
+          <button type="button" class="btn-sync-github" id="syncGithubBtn" title="Fetch live repositories from any GitHub username">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/>
+            </svg>
+            <span class="sync-text">SYNC GITHUB</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Dynamic GitHub User Prompt (Hidden unless user clicks SYNC) -->
+      <div class="github-sync-panel" id="syncPanel" hidden>
+        <div class="sync-panel-inner">
+          <label for="ghUsernameInput" class="sync-label">FETCH REPOSITORIES FOR USER:</label>
+          <div class="sync-input-row">
+            <span class="input-prefix">https://github.com/</span>
+            <input type="text" id="ghUsernameInput" placeholder="username (e.g. torvalds, octocat)" class="sync-text-input">
+            <button type="button" class="btn btn-sync-submit" id="btnSyncSubmit">FETCH</button>
+            <button type="button" class="btn btn-sync-cancel" id="btnSyncCancel">CLOSE</button>
+          </div>
+          <p class="sync-hint">Fetches public repositories using GitHub REST API. Falls back cleanly to curated projects if rate-limited.</p>
+        </div>
+      </div>
+
+      <!-- Project Cards Grid -->
+      <div class="projects-grid" id="projectsGrid" aria-live="polite">
+        <!-- Project cards rendered dynamically via JS, with built-in fallback HTML -->
+      </div>
+
+      <!-- Empty State Indicator -->
+      <div class="empty-state" id="emptyState" hidden>
+        <div class="empty-icon-geo">
+          <span class="empty-circle"></span>
+          <span class="empty-triangle"></span>
+        </div>
+        <h3 class="empty-title">NO MATCHING REPOSITORIES</h3>
+        <p class="empty-desc">No repositories found matching your current search query or active filter.</p>
+        <button type="button" class="btn btn-secondary" id="resetFilterBtn">RESET ALL FILTERS</button>
+      </div>
+    </section>
+
+    <!-- SECTION 02: MANIFESTO (Bauhaus Philosophy applied to Code) -->
+    <section class="section-container manifesto-section" id="manifesto">
+      <div class="section-header">
+        <div class="header-prefix">
+          <span class="section-index">02</span>
+          <span class="prefix-line"></span>
+          <span class="section-category">PHILOSOPHY</span>
+        </div>
+        <h2 class="section-title">THE CODE MANIFESTO</h2>
+        <p class="section-tagline">
+          In 1919 Walter Gropius founded the Bauhaus to bridge art and technology. In 2026, we apply those exact tenets to digital craftsmanship.
+        </p>
+      </div>
+
+      <div class="manifesto-grid">
+        <!-- Principle 01 -->
+        <article class="manifesto-card card-red">
+          <div class="card-num-watermark">01</div>
+          <div class="card-geo-mark red-mark"></div>
+          <h3 class="manifesto-heading">FORM FOLLOWS FUNCTION</h3>
+          <p class="manifesto-body">
+            User experience and runtime efficiency take precedence over architectural vanity. We eschew multi-megabyte bundle bloat in favor of lean, purposeful, and semantic software.
+          </p>
+          <div class="manifesto-footer">
+            <span class="footer-tag">// ARCHITECTURAL EFFICIENCY</span>
+          </div>
+        </article>
+
+        <!-- Principle 02 -->
+        <article class="manifesto-card card-blue">
+          <div class="card-num-watermark">02</div>
+          <div class="card-geo-mark blue-mark"></div>
+          <h3 class="manifesto-heading">THE HONEST MATERIAL</h3>
+          <p class="manifesto-body">
+            Just as Bauhaus embraced raw steel and unadorned concrete, we embrace raw web standards: modern CSS Grid, native JavaScript ESModules, SVG vectors, and clean HTTP primitives.
+          </p>
+          <div class="manifesto-footer">
+            <span class="footer-tag">// ZERO-DEPENDENCY INTEGRITY</span>
+          </div>
+        </article>
+
+        <!-- Principle 03 -->
+        <article class="manifesto-card card-yellow">
+          <div class="card-num-watermark">03</div>
+          <div class="card-geo-mark yellow-mark"></div>
+          <h3 class="manifesto-heading">TOTAL WORK OF ART</h3>
+          <p class="manifesto-body">
+            <em>Gesamtkunstwerk</em>: The union of system architecture, typography, micro-interactions, accessibility (WCAG AA+), and documentation into an indivisible harmonious entity.
+          </p>
+          <div class="manifesto-footer">
+            <span class="footer-tag">// UNIFIED CRAFTSMANSHIP</span>
+          </div>
+        </article>
+      </div>
+
+      <!-- Bauhaus Quote Banner -->
+      <blockquote class="bauhaus-quote-banner">
+        <div class="quote-symbol">&ldquo;</div>
+        <p class="quote-text">
+          Art and technology: a new unity. Technology does not need art, but art very much needs technology.
+        </p>
+        <cite class="quote-author">— WALTER GROPIUS, BAUHAUS WEIMAR, 1923</cite>
+      </blockquote>
+    </section>
+
+    <!-- SECTION 03: TECHNICAL MATRIX -->
+    <section class="section-container" id="stack">
+      <div class="section-header">
+        <div class="header-prefix">
+          <span class="section-index">03</span>
+          <span class="prefix-line"></span>
+          <span class="section-category">EXPERTISE</span>
+        </div>
+        <h2 class="section-title">TECHNICAL MASTERY</h2>
+        <p class="section-tagline">
+          Engineered competencies across language runtimes, browser engines, container systems, and automated continuous delivery.
+        </p>
+      </div>
+
+      <div class="stack-matrix">
+        <!-- Category: Languages -->
+        <div class="stack-column">
+          <div class="column-header">
+            <span class="col-indicator ind-red"></span>
+            <h3 class="col-title">LANGUAGES</h3>
+          </div>
+          <div class="stack-items">
+            <div class="stack-row">
+              <span class="item-name">TypeScript / ESNext</span>
+              <span class="item-level">100%</span>
+              <div class="meter-bar"><div class="meter-fill fill-red" style="width: 100%;"></div></div>
+            </div>
+            <div class="stack-row">
+              <span class="item-name">Rust / WebAssembly</span>
+              <span class="item-level">88%</span>
+              <div class="meter-bar"><div class="meter-fill fill-red" style="width: 88%;"></div></div>
+            </div>
+            <div class="stack-row">
+              <span class="item-name">Go (Golang)</span>
+              <span class="item-level">85%</span>
+              <div class="meter-bar"><div class="meter-fill fill-red" style="width: 85%;"></div></div>
+            </div>
+            <div class="stack-row">
+              <span class="item-name">Python 3.12+</span>
+              <span class="item-level">90%</span>
+              <div class="meter-bar"><div class="meter-fill fill-red" style="width: 90%;"></div></div>
+            </div>
+            <div class="stack-row">
+              <span class="item-name">Modern CSS / SVG</span>
+              <span class="item-level">98%</span>
+              <div class="meter-bar"><div class="meter-fill fill-red" style="width: 98%;"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category: Web & Systems -->
+        <div class="stack-column">
+          <div class="column-header">
+            <span class="col-indicator ind-blue"></span>
+            <h3 class="col-title">SYSTEMS &amp; WEB</h3>
+          </div>
+          <div class="stack-items">
+            <div class="stack-row">
+              <span class="item-name">WebGL &amp; Canvas 2D</span>
+              <span class="item-level">92%</span>
+              <div class="meter-bar"><div class="meter-fill fill-blue" style="width: 92%;"></div></div>
+            </div>
+            <div class="stack-row">
+              <span class="item-name">Web Standards (W3C/WHATWG)</span>
+              <span class="item-level">98%</span>
+              <div class="meter-bar"><div class="meter-fill fill-blue" style="width: 98%;"></div></div>
+            </div>
+            <div class="stack-row">
+              <span class="item-name">Node.js / Bun Runtimes</span>
+              <span class="item-level">94%</span>
+              <div class="meter-bar"><div class="meter-fill fill-blue" style="width: 94%;"></div></div>
+            </div>
+            <div class="stack-row">
+              <span class="item-name">Linux &amp; POSIX Shell</span>
+              <span class="item-level">90%</span>
+              <div class="meter-bar"><div class="meter-fill fill-blue" style="width: 90%;"></div></div>
+            </div>
+            <div class="stack-row">
+              <span class="item-name">Web Workers &amp; WASM</span>
+              <span class="item-level">86%</span>
+              <div class="meter-bar"><div class="meter-fill fill-blue" style="width: 86%;"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category: Architecture & DevOps -->
+        <div class="stack-column">
+          <div class="column-header">
+            <span class="col-indicator ind-yellow"></span>
+            <h3 class="col-title">DEVOPS &amp; DEPLOYMENT</h3>
+          </div>
+          <div class="stack-items">
+            <div class="stack-row">
+              <span class="item-name">GitHub Actions &amp; CI/CD</span>
+              <span class="item-level">95%</span>
+              <div class="meter-bar"><div class="meter-fill fill-yellow" style="width: 95%;"></div></div>
+            </div>
+            <div class="stack-row">
+              <span class="item-name">Docker &amp; Containers</span>
+              <span class="item-level">90%</span>
+              <div class="meter-bar"><div class="meter-fill fill-yellow" style="width: 90%;"></div></div>
+            </div>
+            <div class="stack-row">
+              <span class="item-name">GitHub Pages &amp; Edge CDN</span>
+              <span class="item-level">100%</span>
+              <div class="meter-bar"><div class="meter-fill fill-yellow" style="width: 100%;"></div></div>
+            </div>
+            <div class="stack-row">
+              <span class="item-name">Security &amp; Secret Audit</span>
+              <span class="item-level">88%</span>
+              <div class="meter-bar"><div class="meter-fill fill-yellow" style="width: 88%;"></div></div>
+            </div>
+            <div class="stack-row">
+              <span class="item-name">Performance Optimization</span>
+              <span class="item-level">97%</span>
+              <div class="meter-bar"><div class="meter-fill fill-yellow" style="width: 97%;"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 04: INTERACTIVE TERMINAL & CLONE DISPATCH -->
+    <section class="section-container" id="terminal">
+      <div class="section-header">
+        <div class="header-prefix">
+          <span class="section-index">04</span>
+          <span class="prefix-line"></span>
+          <span class="section-category">DISPATCH</span>
+        </div>
+        <h2 class="section-title">INTERACTIVE TERMINAL</h2>
+        <p class="section-tagline">
+          Execute terminal commands right in the browser, copy clone scripts, or initiate direct correspondence.
+        </p>
+      </div>
+
+      <div class="terminal-container">
+        <!-- Terminal Title Bar -->
+        <div class="terminal-bar">
+          <div class="term-dots">
+            <span class="term-dot dot-red-btn" id="termDotRed" title="Clear"></span>
+            <span class="term-dot dot-yellow-btn" id="termDotYellow" title="Minimize"></span>
+            <span class="term-dot dot-green-btn" id="termDotGreen" title="Expand"></span>
+          </div>
+          <div class="term-title">WERKSTATT-SHELL // bash &mdash; 80x24</div>
+          <div class="term-status">CONNECTED (127.0.0.1)</div>
+        </div>
+
+        <!-- Terminal Output Screen -->
+        <div class="terminal-body" id="terminalOutput" role="region" aria-live="polite" aria-label="Terminal output">
+          <div class="term-line output-system">BAUHAUS TERMINAL v2.6.0 [x86_64-pc-none-elf]</div>
+          <div class="term-line output-system">Type <span class="term-highlight">'help'</span> to see available commands or click the shortcut chips below.</div>
+          <div class="term-line output-prompt"><span class="t-usr">developer@werkstatt</span>:<span class="t-dir">~</span>$ git status</div>
+          <div class="term-line output-success">On branch main. All systems operational. 0 vulnerabilities found. Form follows function.</div>
+        </div>
+
+        <!-- Quick Command Chips -->
+        <div class="terminal-chips">
+          <span class="chips-label">QUICK CMDS:</span>
+          <button type="button" class="term-chip" data-cmd="help">help</button>
+          <button type="button" class="term-chip" data-cmd="repos">repos</button>
+          <button type="button" class="term-chip" data-cmd="clone hypergrid-engine">clone hypergrid</button>
+          <button type="button" class="term-chip" data-cmd="philosophy">philosophy</button>
+          <button type="button" class="term-chip" data-cmd="contact">contact</button>
+          <button type="button" class="term-chip" data-cmd="clear">clear</button>
+        </div>
+
+        <!-- Terminal Input Line -->
+        <form class="terminal-input-row" id="terminalForm">
+          <span class="term-prompt-symbol"><span class="t-usr">developer@werkstatt</span>:<span class="t-dir">~</span>$&nbsp;</span>
+          <input type="text" id="terminalInput" class="term-input" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Type a command (e.g. repos, help, contact)..." aria-label="Terminal command input">
+          <button type="submit" class="term-enter-btn">ENTER ↵</button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Project Detail Modal Dialog -->
+  <div class="modal-backdrop" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+    <div class="modal-box">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <div class="modal-tag-badge" id="modalTag">WEB APPLICATION</div>
+        <button type="button" class="modal-close" id="modalCloseBtn" aria-label="Close modal">&times;</button>
+      </div>
+
+      <!-- Modal Content -->
+      <div class="modal-body">
+        <div class="modal-title-row">
+          <h3 class="modal-title" id="modalTitle">Project Title</h3>
+          <span class="modal-stars" id="modalStars">★ 482</span>
+        </div>
+        <p class="modal-desc" id="modalDesc">Detailed description of the repository, architecture, and technology decisions.</p>
+
+        <div class="modal-specs">
+          <div class="spec-item">
+            <span class="spec-label">PRIMARY LANGUAGE:</span>
+            <span class="spec-value" id="modalLanguage">TypeScript</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">LICENSE:</span>
+            <span class="spec-value" id="modalLicense">MIT</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">DEPENDENCIES:</span>
+            <span class="spec-value" id="modalDependencies">Zero (0 external libraries)</span>
+          </div>
+        </div>
+
+        <!-- Architecture Highlights -->
+        <div class="modal-architecture">
+          <h4 class="arch-heading">// ARCHITECTURAL SPECIFICATIONS</h4>
+          <ul class="arch-list" id="modalHighlights">
+            <li>Strict adherence to W3C DOM and Canvas standard specifications.</li>
+            <li>Sub-millisecond frame rendering using requestAnimationFrame pipeline.</li>
+            <li>Fully decoupled modular architecture for zero runtime dependencies.</li>
+          </ul>
+        </div>
+
+        <!-- Clone Snippet Box -->
+        <div class="modal-clone-box">
+          <span class="clone-box-label">QUICK CLONE REPOSITORY:</span>
+          <div class="clone-command-row">
+            <code class="clone-code" id="modalCloneCmd">git clone https://github.com/username/project.git</code>
+            <button type="button" class="btn-copy-code" id="modalCopyBtn" title="Copy to clipboard">
+              <span class="copy-text">COPY</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary" id="modalRepoLink">
+          VIEW ON GITHUB ↗
+        </a>
+        <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" id="modalDemoLink">
+          LAUNCH LIVE DEMO ↗
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification for Copy / Feedback -->
+  <div class="toast-notification" id="toastNotification" role="alert" aria-live="assertive" hidden>
+    <span class="toast-geo red"></span>
+    <span class="toast-message" id="toastMessage">Command copied to clipboard</span>
+  </div>
+
+  <!-- Bauhaus Footer -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <!-- Footer Col 1: Identity -->
+      <div class="footer-col col-identity">
+        <div class="footer-emblem" aria-hidden="true">
+          <span class="f-circle"></span>
+          <span class="f-square"></span>
+          <span class="f-triangle"></span>
+        </div>
+        <h3 class="footer-logo">WERKSTATT.DEV</h3>
+        <p class="footer-bio">
+          A static Bauhaus portfolio engineered for GitHub Pages. Built strictly with standard semantic HTML5, modern vanilla CSS, and lightweight JavaScript.
+        </p>
+        <div class="footer-license">
+          RELEASED UNDER THE MIT LICENSE // HOSTED ON GITHUB PAGES
+        </div>
+      </div>
+
+      <!-- Footer Col 2: Navigation -->
+      <div class="footer-col">
+        <h4 class="footer-heading">NAVIGATION</h4>
+        <ul class="footer-links">
+          <li><a href="#hero">00 // Home &amp; Composition</a></li>
+          <li><a href="#projects">01 // Repositories Showcase</a></li>
+          <li><a href="#manifesto">02 // The Manifesto</a></li>
+          <li><a href="#stack">03 // Technical Matrix</a></li>
+          <li><a href="#terminal">04 // Interactive Terminal</a></li>
+        </ul>
+      </div>
+
+      <!-- Footer Col 3: Direct Links -->
+      <div class="footer-col">
+        <h4 class="footer-heading">CHANNELS</h4>
+        <ul class="footer-links">
+          <li><a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub Profile ↗</a></li>
+          <li><a href="https://gist.github.com" target="_blank" rel="noopener noreferrer">Public Gists ↗</a></li>
+          <li><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></li>
+          <li><a href="mailto:contact@werkstatt.dev">contact@werkstatt.dev</a></li>
+        </ul>
+      </div>
+
+      <!-- Footer Col 4: Top Action & Status -->
+      <div class="footer-col col-action">
+        <h4 class="footer-heading">DISPATCH</h4>
+        <div class="availability-card">
+          <span class="avail-pulse"></span>
+          <div class="avail-text">
+            <strong>OPEN TO CONTRACTS &amp; ROLES</strong>
+            <p>Full-stack, Systems, &amp; Frontend Architecture</p>
+          </div>
+        </div>
+        <button type="button" class="btn btn-back-to-top" id="backToTopBtn" aria-label="Scroll back to top">
+          BACK TO TOP ↑
+        </button>
+      </div>
+    </div>
+
+    <!-- Sub-footer bar -->
+    <div class="sub-footer">
+      <div class="sub-footer-text">
+        &copy; 2026 WERKSTATT // CREATED WITH BAUHAUS METHODOLOGY &mdash; WEIMAR &bull; DESSAU &bull; GITHUB
+      </div>
+      <div class="sub-footer-tech">
+        STATIC &bull; 0 EXTERNAL RUNTIME DEPS &bull; 100 LIGHTHOUSE SCORE
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

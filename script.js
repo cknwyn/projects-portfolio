@@ -793,7 +793,7 @@
           break;
 
         case 'repos':
-          appendLine(`WERKSTATT REPOSITORIES (${STATE.repos.length} TOTAL):`, 'output-info');
+          appendLine(`REPOSITORIES (${STATE.repos.length} TOTAL):`, 'output-info');
           STATE.repos.forEach((r, idx) => {
             appendLine(`  [${String(idx + 1).padStart(2, '0')}] <span class="term-highlight">${escapeHtml(r.name)}</span> (${escapeHtml(r.primaryLang)}) - ★ ${r.stars}`);
           });
@@ -804,7 +804,7 @@
             appendLine('Usage: clone &lt;repo-name&gt; (e.g. clone hypergrid-engine)', 'output-error');
           } else {
             const found = STATE.repos.find((r) => r.name.toLowerCase().includes(arg.toLowerCase()));
-            const targetUrl = found ? found.githubUrl : `https://github.com/octocat/${arg}`;
+            const targetUrl = found ? found.githubUrl : `https://github.com/cknwyn/${arg}`;
             const cloneCmd = `git clone ${targetUrl}.git`;
             copyToClipboard(cloneCmd);
             appendLine(`Copied to clipboard: <span class="term-highlight">${cloneCmd}</span>`, 'output-success');
@@ -825,9 +825,8 @@
 
         case 'contact':
           appendLine('CHANNELS FOR CORRESPONDENCE:', 'output-info');
-          appendLine('  Email:   contact@werkstatt.dev');
-          appendLine('  GitHub:  https://github.com');
-          appendLine('  Status:  Available for high-impact contracts & systems work');
+          appendLine('  Email:   contact@cknwyn.dev');
+          appendLine('  GitHub:  https://github.com/cknwyn');
           break;
 
         case 'date':
@@ -835,7 +834,7 @@
           break;
 
         case 'whoami':
-          appendLine('developer@werkstatt [UID=1000 GID=1000] // Bauhaus Web Craftsman', 'output-system');
+          appendLine('developer@cknwyn.dev [UID=1000 GID=1000] // Bauhaus Web Craftsman', 'output-system');
           break;
 
         case 'clear':

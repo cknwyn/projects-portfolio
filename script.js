@@ -215,7 +215,7 @@
 
         osc.start();
         osc.stop(this.ctx.currentTime + duration);
-      } catch (e) {
+      } catch (_e) {
         // Silently continue if audio blocked by browser policy
       }
     }
@@ -246,7 +246,7 @@
 
         osc.start();
         osc.stop(now + 0.15);
-      } catch (e) {}
+      } catch (_e) {}
     }
   }
 
@@ -454,6 +454,7 @@
       if (wheel) wheel.style.transform = `rotate(${wheelRot}deg)`;
       if (square) square.style.transform = `translate(${squareX}px, ${squareY}px) rotate(${squareRot}deg) scale(${squareScale})`;
       if (triangle) triangle.style.transform = `translateY(${triY}px) rotate(${triRot}deg)`;
+      if (pillar) pillar.style.transform = `translateY(${Math.random() > 0.5 ? -10 : 10}px)`;
       if (hollow) hollow.style.transform = `scale(${hollowScale})`;
 
       showToast('Geometric composition reordered: Bauhaus synthesis updated.');
@@ -607,7 +608,6 @@
       const mappedRepos = rawRepos.map((r, index) => {
         const bands = ['band-red', 'band-blue', 'band-yellow', 'band-black'];
         const tagClasses = ['tag-red', 'tag-blue', 'tag-yellow', 'tag-black'];
-        const catList = ['web', 'tools', 'systems', 'creative'];
 
         const lang = r.language || 'Code';
         let inferredCategory = 'tools';
@@ -896,7 +896,7 @@
     try {
       document.execCommand('copy');
       showToast(`Copied: "${text}"`);
-    } catch (e) {
+    } catch (_e) {
       showToast('Failed to copy to clipboard.');
     }
     document.body.removeChild(ta);

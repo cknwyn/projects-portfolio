@@ -35,11 +35,19 @@
 
 ```
 webport/
-├── index.html        # Semantic HTML5 markup, ARIA landmarks, SEO meta
-├── style.css         # Complete Bauhaus CSS design system & responsive layout
-├── script.js         # Canvas physics, terminal, project filter, GitHub API sync
-├── favicon.svg       # Bauhaus geometric vector favicon
-└── README.md         # Documentation & GitHub Pages deployment guide
+├── .github/
+│   └── workflows/
+│       └── deploy.yml   # CI/CD: Quality Gate (Lint) -> Deploy to Pages
+├── .gitignore           # Ignores node_modules and OS files
+├── .nojekyll           # Disables Jekyll processing for pure static assets
+├── eslint.config.mjs    # ESLint 9+ flat configuration rules
+├── package.json         # Scripts for testing and linting
+├── package-lock.json    # Deterministic dependency lockfile
+├── index.html          # Semantic HTML5 markup, ARIA landmarks, SEO meta
+├── style.css           # Complete Bauhaus CSS design system & responsive layout
+├── script.js           # Canvas physics, terminal, project filter, GitHub API sync
+├── favicon.svg         # Bauhaus geometric vector favicon
+└── README.md           # Documentation & GitHub Pages deployment guide
 ```
 
 ---
@@ -65,13 +73,11 @@ npx serve .
 
 ---
 
-## Deploying to GitHub Pages (2 Minutes)
+## Deploying to GitHub Pages via GitHub Actions (Automated CI/CD)
 
-1. **Create a GitHub Repository**:
-   - Go to [GitHub New Repository](https://github.com/new).
-   - Name your repo (e.g., `portfolio` or `<your-username>.github.io`).
+The project includes a ready-to-use GitHub Actions workflow (`.github/workflows/deploy.yml`) that automatically packages and publishes your site on every push:
 
-2. **Push your code**:
+1. **Push your code to GitHub**:
    ```bash
    git init
    git add .
@@ -81,11 +87,33 @@ npx serve .
    git push -u origin main
    ```
 
-3. **Enable GitHub Pages**:
+2. **Enable GitHub Actions for Pages (One-time setup)**:
    - On GitHub, go to your repository **Settings** → **Pages** (in the left sidebar).
-   - Under **Build and deployment > Source**, select **Deploy from a branch**.
-   - Under **Branch**, select `main` and `/ (root)`, then click **Save**.
-   - Your website will be live in ~60 seconds at `https://<YOUR_USERNAME>.github.io/<REPO_NAME>/`!
+   - Under **Build and deployment > Source**, select **GitHub Actions**.
+   - That's it! GitHub will automatically trigger the workflow and publish your site at:
+     `https://<YOUR_USERNAME>.github.io/<REPO_NAME>/`
+
+3. **Continuous Deployment with Quality Gate**:
+   - Every time you push a new commit to `main` (or `master`), GitHub Actions runs the `lint` job first.
+   - If ESLint or syntax validation fails, the deployment halts immediately to prevent broken code from being published.
+   - If all checks pass, the `deploy` job packages and publishes the site to GitHub Pages automatically.
+
+---
+
+## Code Quality & Linting
+
+You can run the exact same quality checks locally that GitHub Actions runs in CI:
+
+```bash
+# Run both syntax check and ESLint
+npm test
+
+# Run ESLint only
+npm run lint
+
+# Run Node syntax check only
+npm run lint:syntax
+```
 
 ---
 

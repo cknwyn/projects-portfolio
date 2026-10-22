@@ -1,0 +1,79 @@
+name: Lint & Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+# Set permissions for GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Prevent concurrent deployments from colliding
+concurrency:
+  group: 'pages'
+  cancel-in-progress: false
+
+jobs:
+  # =============================================================
+  # QUALITY GATE: JavaScript Linter & Syntax Verification
+  # Runs automatically before any deployment can occur.
+  # If any check fails, the pipeline halts immediately.
+  # =============================================================
+  lint:
+    name: Quality Gate (JS Lint & Syntax)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js runtime
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies (clean)
+        run: npm ci
+
+      - name: Verify JavaScript syntax (node --check)
+        run: npm run lint:syntax
+
+      - name: Run ESLint
+        run: npm run lint
+
+  # =============================================================
+  # DEPLOYMENT GATE: Deploy to GitHub Pages
+  # STRICT PREREQUISITE: Only executes if the 'lint' job succeeds!
+  # =============================================================
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: lint
+    if: github.event_name != 'pull_request'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

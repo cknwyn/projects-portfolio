@@ -1,0 +1,17 @@
+{
+  "name": "webport",
+  "version": "1.0.0",
+  "description": "Bauhaus GitHub Portfolio with automated CI/CD and linting",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "eslint script.js",
+    "lint:syntax": "node --check script.js",
+    "test": "npm run lint:syntax && npm run lint"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.20.0",
+    "eslint": "^9.20.0",
+    "globals": "^15.15.0"
+  }
+}

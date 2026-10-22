@@ -1194,3 +1194,5 @@
     }
   });
 })();
+// Intentional test bug:
+fakevariable.triggerCrash()

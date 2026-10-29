@@ -1,119 +1,128 @@
-## Highlights & Features
+# WERKSTATT // Bauhaus GitHub Portfolio
 
-- **Bauhaus Design System**: Unapologetic primary palette (Vermilion Red `#E63946`, Cobalt Blue `#1D4ED8`, Sun Yellow `#F59E0B`, Pitch Black `#111111`, Paper Cream `#F7F4EB`), high-contrast structural grid borders, and geometric primitives.
-- **Bold Smooth Typography**: Features `Syne` for ultra-bold architectural headlines, `Space Grotesk` for geometric body copy, and `JetBrains Mono` for code and telemetry.
-- **Animated Landing Page**:
-  - Interactive kinetic Bauhaus sculpture with continuous multi-layered rotating segmented discs and orbiting geometry.
-  - Interactive background Canvas where geometric nodes and vector lines react dynamically to mouse position.
-  - Interactive **"Compose Art"** button that randomly reconfigures the sculpture's geometric transforms.
-  - Live CAD coordinate crosshair HUD tracking pointer coordinates in real time.
-- **GitHub Projects Showcase**:
-  - Filter by category: `All`, `Web Apps`, `Dev Tools`, `Systems & CLI`, `Creative Code`.
-  - Real-time instant search by repository name, keyword, or language.
-  - Detailed project modal dialog with architectural specifications and one-click `git clone` clipboard copy.
-  - **Dynamic GitHub Live Sync**: Built-in feature to fetch any public GitHub user's real repositories live using the GitHub REST API!
-- **Interactive Developer Terminal**: Fully functional in-browser command terminal supporting `help`, `repos`, `clone <repo>`, `philosophy`, `skills`, `contact`, and `clear`.
-- **Zero Dependencies & Lightweight**: 0 npm packages, 0 heavy frameworks, 0 external audio files (uses the browser's native **Web Audio API** for tactile mechanical click sounds). Sub-50KB total footprint!
-- **100% GitHub Pages Ready**: Pure static files (`index.html`, `style.css`, `script.js`, `favicon.svg`).
+A responsive, high-performance web portfolio built with pure vanilla web standards, inspired by the historical Bauhaus aesthetic (Dessau & Weimar). It features interactive geometric animations, live GitHub repository querying, an in-browser developer terminal, and a strict dual-gate CI/CD deployment pipeline.
+
+---
+
+## Key Features
+
+- **Bauhaus Design System**: Bold primary palette (Vermilion Red, Cobalt Blue, Sun Yellow, Pitch Black, and Warm White) paired with crisp structural grid lines and architectural typography (`Syne`, `Space Grotesk`, `JetBrains Mono`).
+- **Interactive Landing Elements**:
+  - Kinetic HTML5 Canvas with dynamic node-network physics reacting to cursor movements.
+  - Interactive Geometric Sculpture with customizable random configuration shuffle.
+  - Real-time CAD coordinate tracking HUD.
+- **Dynamic Projects Showcase**:
+  - Instant tag and category filtering (`Web Apps`, `Dev Tools`, `Systems & CLI`, `Creative Code`).
+  - Client-side full-text search across repository names, languages, and descriptions.
+  - Live GitHub API integration to dynamically query and display any public GitHub user's repositories.
+  - Detailed project modals with one-click `git clone` command copying.
+- **In-Browser Developer Terminal**: Interactive shell supporting navigation and informational commands (`help`, `repos`, `clone <repo>`, `philosophy`, `skills`, `contact`, `clear`).
+- **Zero Runtime Dependencies**: 100% vanilla HTML5, CSS3, and modern JavaScript with browser-native Web Audio API synthesis for mechanical click feedback.
 
 ---
 
 ## Project Structure
 
-```
-webport/
+```text
+projects-portfolio/
 ├── .github/
 │   └── workflows/
-│       └── deploy.yml   # CI/CD: Quality Gate (Lint) -> Deploy to Pages
-├── .gitignore           # Ignores node_modules and OS files
-├── .nojekyll           # Disables Jekyll processing for pure static assets
-├── eslint.config.mjs    # ESLint 9+ flat configuration rules
-├── package.json         # Scripts for testing and linting
-├── package-lock.json    # Deterministic dependency lockfile
-├── index.html          # Semantic HTML5 markup, ARIA landmarks, SEO meta
-├── style.css           # Complete Bauhaus CSS design system & responsive layout
-├── script.js           # Canvas physics, terminal, project filter, GitHub API sync
-├── favicon.svg         # Bauhaus geometric vector favicon
-└── README.md           # Documentation & GitHub Pages deployment guide
+│       └── deploy.yml          # GitHub Actions CI/CD (Lint + Jest Tests -> GitHub Pages Deploy)
+├── __tests__/
+│   └── utils.test.js          # Jest unit test suite (41 tests covering core logic)
+├── .gitignore                  # Git ignore rules for node_modules and logs
+├── .nojekyll                  # Disables Jekyll processing for direct static asset serving
+├── eslint.config.mjs           # ESLint 9+ flat configuration with browser and Jest environments
+├── favicon.svg                 # Bauhaus geometric SVG favicon
+├── index.html                  # Semantic HTML5 structure and layout
+├── package.json                # Project scripts (lint, test) and dev dependencies
+├── package-lock.json           # Locked dependency tree
+├── README.md                   # Project documentation and developer guide
+├── script.js                   # Application state, Canvas engine, UI event bindings, API fetch
+├── style.css                   # Responsive Bauhaus layout styles, grid, animations, and modals
+└── utils.js                    # Pure utility functions (XSS escaping, filtering, categories, commands)
 ```
 
 ---
 
-## Quick Start (Local Development)
+## Testing & Quality Control
 
-Because Werkstatt is built with standard web technologies, no build step or package manager is required.
+Unit tests are written with [Jest](https://jestjs.io/) and test pure functional units exported from `utils.js` (including sanitization, filtering algorithms, category inference, and string manipulation):
 
-### Option 1: Double-click
-Simply double-click `index.html` in your file explorer to open it directly in any modern browser.
+| Suite | Focus Areas | Test Count |
+| :--- | :--- | :--- |
+| `escapeHtml()` | XSS mitigation, escaping `&`, `<`, `>`, `"`, `'`, type coercion | 10 tests |
+| `inferCategoryFromLanguage()` | Mapping GitHub languages to portfolio categories (`web`, `systems`, etc.) | 14 tests |
+| `filterRepos()` | Category matching, case-insensitive keyword searches, combined filters | 10 tests |
+| `countByCategory()` | Aggregation metrics calculations and defensive defaults | 3 tests |
+| `buildCloneCommand()` | Formatting `git clone` commands and empty-input protection | 4 tests |
 
-### Option 2: Local HTTP Server
-Using Python (pre-installed on most systems):
-```bash
-python -m http.server 8000
-```
-Then navigate to `http://localhost:8000`.
-
-Or using Node:
-```bash
-npx serve .
-```
-
----
-
-## Deploying to GitHub Pages via GitHub Actions (Automated CI/CD)
-
-The project includes a ready-to-use GitHub Actions workflow (`.github/workflows/deploy.yml`) that automatically packages and publishes your site on every push:
-
-1. **Push your code to GitHub**:
-   ```bash
-   git init
-   git add .
-   git commit -m "feat: initial Bauhaus portfolio release"
-   git branch -M main
-   git remote add origin https://github.com/<YOUR_USERNAME>/<REPO_NAME>.git
-   git push -u origin main
-   ```
-
-2. **Enable GitHub Actions for Pages (One-time setup)**:
-   - On GitHub, go to your repository **Settings** → **Pages** (in the left sidebar).
-   - Under **Build and deployment > Source**, select **GitHub Actions**.
-   - That's it! GitHub will automatically trigger the workflow and publish your site at:
-     `https://<YOUR_USERNAME>.github.io/<REPO_NAME>/`
-
-3. **Continuous Deployment with Quality Gate**:
-   - Every time you push a new commit to `main` (or `master`), GitHub Actions runs the `lint` job first.
-   - If ESLint or syntax validation fails, the deployment halts immediately to prevent broken code from being published.
-   - If all checks pass, the `deploy` job packages and publishes the site to GitHub Pages automatically.
-
----
-
-## Code Quality & Linting
-
-You can run the exact same quality checks locally that GitHub Actions runs in CI:
+### Running Checks Locally
 
 ```bash
-# Run both syntax check and ESLint
+# Run unit tests with Jest
 npm test
 
-# Run ESLint only
+# Run ESLint validation
 npm run lint
 
-# Run Node syntax check only
+# Run Node syntax checks
 npm run lint:syntax
 ```
 
 ---
 
-## Browser Support
+## GitHub Actions Deployment Pipeline
 
-- Chrome / Chromium 90+
-- Firefox 88+
-- Safari 14+
-- Edge 90+
-- iOS Safari & Android Chrome
+The automated deployment pipeline (`.github/workflows/deploy.yml`) implements a strict **Dual-Quality Gate** before publishing:
+
+```mermaid
+flowchart LR
+    A[Push to main] --> B[Job 1: Lint & Syntax]
+    A --> C[Job 2: Jest Unit Tests]
+    B --> D{Both Passed?}
+    C --> D
+    D -- Yes --> E[Job 3: Deploy to GitHub Pages]
+    D -- No --> F[Deployment Blocked / Pipeline Halts]
+```
+
+1. **Gate 1 (`lint`)**: Executes `node --check` syntax checks and ESLint verification across all source files.
+2. **Gate 2 (`test`)**: Runs all 41 Jest unit tests (`npm test`).
+3. **Deployment (`deploy`)**: Defined with `needs: [lint, test]`. GitHub Pages deployment triggers **only if both quality gates pass**. Any linting error or test failure halts the pipeline immediately.
 
 ---
 
-## License
+## Quick Start (Local Development)
 
-Released under the [MIT License](https://opensource.org/licenses/MIT). Created in the spirit of the Weimar Bauhaus movement (1919–1933).
+### Prerequisites
+- Node.js (v20+ recommended)
+- npm
+
+### Setup & Run
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/cknwyn/projects-portfolio.git
+   cd projects-portfolio
+   ```
+
+2. **Install development dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Run the quality checks**:
+   ```bash
+   npm run lint
+   npm test
+   ```
+
+4. **Serve the portfolio locally**:
+   ```bash
+   # Using npx serve
+   npx serve .
+
+   # Or using Python 3
+   python -m http.server 8000
+   ```
+   Open `http://localhost:3000` (or `http://localhost:8000`) in your web browser.

@@ -71,7 +71,7 @@ describe('escapeHtml()', () => {
   });
 
   test('escapes ampersands', () => {
-    expect(escapeHtml('AT&T')).toBe('AT&amp;T');
+    expect(escapeHtml('AT&T')).toBe('FAILING_SAMPLE_ASSERTION_DEMO');
   });
 
   test('escapes less-than signs', () => {

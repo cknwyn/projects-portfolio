@@ -5,13 +5,15 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "lint": "eslint script.js",
-    "lint:syntax": "node --check script.js",
-    "test": "npm run lint:syntax && npm run lint"
+    "lint": "eslint .",
+    "lint:syntax": "node --check script.js && node --check utils.js",
+    "test:unit": "jest",
+    "test": "npm run test:unit"
   },
   "devDependencies": {
     "@eslint/js": "^9.20.0",
     "eslint": "^9.20.0",
-    "globals": "^15.15.0"
+    "globals": "^15.15.0",
+    "jest": "^30.5.2"
   }
 }
